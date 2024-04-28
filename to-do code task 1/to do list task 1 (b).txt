@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>880</width>
+    <height>624</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QCalendarWidget" name="calendarWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>180</y>
+     <width>351</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCalendarWidget {
+    background-color: rgba(150, 111, 214, 150); /* Set transparent light purplish shade */
+    color: white; /* Set text color */
+    border: none; /* Remove border */
+    font-size: 12pt; /* Decrease font size */
+    font-family: Arial, sans-serif; /* Set font family */
+    font-weight: normal; /* Set font weight */
+    font-style: normal; /* Set font style */
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+    selection-background-color: #087863; /* Set selection background color */
+    selection-color: white; /* Set selection text color */
+}
+
+QCalendarWidget QPushButton {
+    background-color: transparent; /* Make buttons transparent */
+    color: white; /* Set button text color */
+    border: none; /* Remove button border */
+}
+
+QCalendarWidget QPushButton:hover {
+    background-color: #087863; /* Change button background color on hover */
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #087863; /* Set navigation bar background color */
+    color: white; /* Set navigation bar text color */
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth,
+QCalendarWidget QToolButton#qt_calendar_nextmonth {
+    background-color: transparent; /* Make previous and next month buttons transparent */
+    color: white; /* Set button text color */
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth:hover,
+QCalendarWidget QToolButton#qt_calendar_nextmonth:hover {
+    background-color: #087863; /* Change button background color on hover */
+}
+
+</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_button">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>120</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* Style for QPushButton */
+QPushButton {
+    border-radius: 10px; /* Apply border radius */
+    background-color: #087863; /* Set background color */
+    color: white; /* Set text color */
+    font: 11pt; /* Set font size and style */
+    padding: 5px 10px; /* Apply padding */
+    border: 2px solid #FFFFFF; /* Apply border */
+    border-color: #087863; /* Set border color */
+}
+
+/* Hover effect */
+QPushButton:hover {
+    background-color: #0a9b72; /* Change background color on hover */
+}
+
+/* Click effect */
+QPushButton:pressed {
+    background-color: #065e48; /* Change background color when pressed */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Add new task</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>901</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 24pt; /* Set font size */
+background-color: #087863; /* Set background color */
+color: white; /* Set text color */
+border-radius: 8px; /* Apply border radius */
+padding: 10px; /* Apply padding */
+text-align: center; /* Center align text */
+text-transform: uppercase; /* Transform text to uppercase */
+font-weight: bold; /* Set font weight to bold */</string>
+   </property>
+   <property name="text">
+    <string>To Do List</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="tasksListWidget">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>180</y>
+     <width>291</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListWidget {
+    background-color: #f0f0f0; /* Set background color */
+    color: #333; /* Set text color */
+    font-size: 12pt; /* Set font size */
+    border: 2px solid #087863; /* Set border */
+    border-radius: 8px; /* Apply border radius */
+}
+
+QListWidget::item {
+    padding: 5px; /* Apply padding */
+}
+
+QListWidget::item:selected {
+    background-color: #087863; /* Set background color for selected item */
+    color: white; /* Set text color for selected item */
+}
+
+QListWidget::item:hover {
+    background-color: #d5d5d5; /* Set background color on hover */
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edit_button">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>490</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* Style for QPushButton */
+QPushButton {
+    border-radius: 10px; /* Apply border radius */
+    background-color: #087863; /* Set background color */
+    color: white; /* Set text color */
+    font: 11pt; /* Set font size and style */
+    padding: 5px 10px; /* Apply padding */
+    border: 2px solid #FFFFFF; /* Apply border */
+    border-color: #087863; /* Set border color */
+}
+
+/* Hover effect */
+QPushButton:hover {
+    background-color: #0a9b72; /* Change background color on hover */
+}
+
+/* Click effect */
+QPushButton:pressed {
+    background-color: #065e48; /* Change background color when pressed */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Edit Task</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="remove_button">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>490</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* Style for QPushButton */
+QPushButton {
+    border-radius: 10px; /* Apply border radius */
+    background-color: #087863; /* Set background color */
+    color: white; /* Set text color */
+    font: 11pt; /* Set font size and style */
+    padding: 5px 10px; /* Apply padding */
+    border: 2px solid #FFFFFF; /* Apply border */
+    border-color: #087863; /* Set border color */
+}
+
+/* Hover effect */
+QPushButton:hover {
+    background-color: #0a9b72; /* Change background color on hover */
+}
+
+/* Click effect */
+QPushButton:pressed {
+    background-color: #065e48; /* Change background color when pressed */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Remove task</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,74 @@
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QApplication, QListWidgetItem, QInputDialog, QLineEdit, QMessageBox
+from PyQt5.uic import loadUi
+import sys
+
+tasks = ["Physics Assignment", "Calculus", "OOPs Quiz", "Task Submission"]  # Add list of tasks
+
+class Window(QWidget):
+    def __init__(self):
+        super(Window, self).__init__()
+
+        loadUi("main.ui", self)  # Loading user interface file
+        self.calendarWidget.selectionChanged.connect(self.calendar_date_changed)  # Notify when date is changed
+        self.update_task_list()  # Updating task list
+        self.add_button.clicked.connect(self.add_task)
+        self.edit_button.clicked.connect(self.edit_task)  # Connect edit button to edit_task method
+        self.remove_button.clicked.connect(self.remove_task)
+        self.setWindowTitle("To Do")
+        self.setWindowIcon(QIcon('icon.png'))
+
+
+    def calendar_date_changed(self):
+        print("The calendar date was changed.") # Print a message about date change
+        date_selected = self.calendarWidget.selectedDate().toPyDate()
+        print("Date selected:", date_selected)
+
+    def update_task_list(self):
+        for task in tasks:
+            self.add_task_to_list(task)
+
+# Function to edit a task
+    def edit_task(self):  # Corrected method name
+        current_index = self.tasksListWidget.currentRow()
+        item = self.tasksListWidget.item(current_index)
+
+        if item is not None:
+            text, ok = QInputDialog.getText(self, "Edit Task", "Edit Task", QLineEdit.Normal, item.text())
+            if ok and text.strip():
+                item.setText(text)
+
+  # Function to remove a task  
+    def remove_task(self):
+        currentIndex = self.tasksListWidget.currentRow()
+        item = self.tasksListWidget.item(currentIndex)
+        if item is None:
+            return
+        question = QMessageBox.question(self, "Remove Task", f"Do you want to remove the task?{item.text}",QMessageBox.Yes | QMessageBox.No)
+
+# If the user confirm remove the task
+        if question == QMessageBox.Yes:
+            self.tasksListWidget.takeItem(currentIndex)
+
+
+# Adding task to the list
+
+    def add_task_to_list(self, task):
+        item = QListWidgetItem(task)
+        item.setFlags(item.flags() | Qt.ItemIsUserCheckable)
+        item.setCheckState(Qt.Unchecked)
+        self.tasksListWidget.addItem(item)
+
+
+    def add_task(self):  # Function to add a new task
+        text, ok = QInputDialog.getText(self, "New Task", "Task?")
+        if ok and text.strip():
+            self.add_task_to_list(text)
+
+
+if __name__ == "__main__":  # Initialize the application
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())

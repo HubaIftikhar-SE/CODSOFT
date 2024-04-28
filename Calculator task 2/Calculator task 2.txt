@@ -1,0 +1,129 @@
+import tkinter as tk
+
+font_large_size=("Arial", 40, "bold")
+font_size=("Arial", 16)
+buttons_colors = "#FFFFFF"
+enter_clear_color= "#CCEDFF"
+background_color = "#F5F5F5"
+label_box_color= "#5f526e"
+digit_size= ("Arial", 24, "bold")
+font_style=("Arial", 20)
+arithmetic_color= "#F8FAFF"
+
+class Calculator:
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.geometry("375x667")
+        self.window.resizable(False,False)
+        self.window.title("MathMate")
+        self.totalexp= ""
+        self.currentexp= ""
+        self.display_frame = self.insert_display_frame()
+        self.total_label, self.label = self.insert_display_label()
+        self.digit_buttons = {
+            7:(1,1), 8:(1,2), 9:(1,3),
+            4:(2,1), 5:(2,2), 6:(2,3),
+            1:(3,1), 2:(3,2), 3:(3,3),
+            0:(4,2), '.':(4,1)
+        }
+        self.arithmetic = {"/": "\u00F7", "*": "\u00D7", "-": "-", "+": "+"}
+        self.buttons_frame = self.insert_buttons_frame()
+        
+        self.buttons_frame.rowconfigure(0, weight=1)
+        for x in range(1,5):
+            self.buttons_frame.rowconfigure(x, weight=1)
+            self.buttons_frame.columnconfigure(x, weight=1)
+        
+        self.insert_digit_buttons()
+        self.insert_arithmetic_buttons()
+        self.insert_unique_buttons()
+
+    def insert_unique_buttons(self):
+        self.clear_text_button()
+        self.enter_text_button()
+
+
+    def insert_display_label(self):
+        total_label = tk.Label(self.display_frame, text=self.totalexp, anchor=tk.E, bg=background_color,fg=label_box_color, padx=24, font=font_size)
+        total_label.pack(expand=True, fill="both")
+
+        label = tk.Label(self.display_frame, text=self.currentexp, anchor=tk.E, bg=background_color,fg=label_box_color, padx=24, font=font_large_size)
+        label.pack(expand=True, fill="both")
+
+        return total_label, label
+
+    def insert_display_frame(self):
+        frame = tk.Frame(self.window, height=221, bg=background_color)
+        frame.pack(expand=True, fill="both")
+        return frame
+    
+    def addin_exp(self, value):
+        if value == "." and "." in self.currentexp:
+            return
+        self.currentexp += str(value)
+        self.modify_label()
+
+    def insert_digit_buttons(self):
+     
+     for digit, grid_num in self.digit_buttons.items():
+          digits = tk.Button(self.buttons_frame, text=digit, bg=buttons_colors, fg=label_box_color, font= digit_size, borderwidth=0, command= lambda x= digit: self.addin_exp(x))
+          digits.grid(row=grid_num[0], column=grid_num[1], sticky=tk.NSEW)
+    
+    def append_arithmetic(self, arithmetic):
+        if self.currentexp =="":
+            return
+        self.totalexp += self.currentexp
+        self.currentexp = ""
+        self.totalexp += arithmetic
+        self.modify_total_label()
+        self.modify_label()
+
+    def insert_arithmetic_buttons(self):
+        i = 0 
+        for operators,symbol in self.arithmetic.items():
+            button = tk.Button(self.buttons_frame, text=symbol, bg=arithmetic_color, fg= label_box_color, font = font_style, borderwidth=0, command=lambda x=operators: self.append_arithmetic(x))
+            button.grid(row=i,column=4, sticky=tk.NSEW )
+            i+=1
+
+    def clear_all(self):
+        self.currentexp=""
+        self.totalexp=""
+        self.modify_label()
+        self.modify_total_label()
+
+    def evaluate(self):
+        try:
+            self.totalexp += self.currentexp
+            result = eval(self.totalexp)
+            self.currentexp = str(result)
+            self.totalexp = self.currentexp
+            self.modify_label()
+            self.modify_total_label()
+        except Exception as e :
+            self.currentexp = "Error"
+            self.modify_label()
+
+    def clear_text_button(self):
+        button = tk.Button(self.buttons_frame, text="C", bg=arithmetic_color, fg= label_box_color, font = font_style, borderwidth=0, command=self.clear_all)
+        button.grid(row=0,column=1, columnspan=3, sticky=tk.NSEW )
+
+    def enter_text_button(self):
+        button = tk.Button(self.buttons_frame, text="=", bg=enter_clear_color, fg= label_box_color, font = font_style, borderwidth=0, command=self.evaluate)
+        button.grid(row=4,column=3, columnspan=2, sticky=tk.NSEW )
+
+    def insert_buttons_frame(self):
+        frame = tk.Frame(self.window)
+        frame.pack(expand=True, fill="both")
+        return frame
+        
+    def modify_total_label(self):
+        self.total_label.config(text=self.totalexp)
+
+    def modify_label(self):
+        self.label.config(text=self.currentexp)
+
+    def run(self):
+        self.window.mainloop()
+if __name__ == "__main__":
+    mathmate = Calculator()
+    mathmate.run()
